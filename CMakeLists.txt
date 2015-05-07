@@ -15,7 +15,6 @@ SET(CMAKE_MODULE_PATH
 IF(MSVC)
   # we want to respect the standard, and we are bored of those **** .
   ADD_DEFINITIONS(-D_CRT_SECURE_NO_DEPRECATE=1)
-  SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror=implicit-function-declaration -Werror=format")
 ENDIF(MSVC)
 
 # OpenMP support?
