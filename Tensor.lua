@@ -9,6 +9,9 @@ local types = {'Byte', 'Char', 'Short', 'Int', 'Long', 'Float', 'Double'}
 
 -- tostring() functions for Tensor and Storage
 local function Storage__printformat(self)
+   if self:size() == 0 then 
+     return "", nil, 0
+   end
    local intMode = true
    local type = torch.typename(self)
 --   if type == 'torch.FloatStorage' or type == 'torch.DoubleStorage' then
@@ -492,15 +495,14 @@ function Tensor.split(result, tensor, splitSize, dim)
       end
    end
    dim = dim or 1
-   local splits = {}
    local start = 1
    while start <= tensor:size(dim) do
       local size = math.min(splitSize, tensor:size(dim) - start + 1)
       local split = tensor:narrow(dim, start, size)
-      table.insert(splits, split)
+      table.insert(result, split)
       start = start + size
    end
-   return splits
+   return result
 end
 torch.split = Tensor.split
 
